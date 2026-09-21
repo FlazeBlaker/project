@@ -8,3 +8,8 @@ function login(username) {
 function logout(username) {
     console.log(`Logging out ${username}`);
 }
+
+function logout(username: string) {
+    console.log(`Logging out ${username}`);
+}
+
