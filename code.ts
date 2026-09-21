@@ -1,22 +1,42 @@
-interface User{
-    name:string;
-    age:number;
-    isWorking:"NO" | "Yes";
+interface Payment{
+    pay(amount:number):void;
 }
 
-function createUser(name:string,age:number):User{
-    return{
-        name,
-        age,
-        isWorking:"Yes"
+class PaymentMethod{
+    constructor(protected owner: string){
+
+    }
+
+    showOwner(): void{
+        console.log(`Payment: owner: ${this.owner}`);
     }
 }
 
-function printUserName(user:User):void{
-    console.log(`${user.name}`);   
+class UPI extends PaymentMethod implements Payment{
+    constructor(owner:string,private upiID:string){
+        super(owner);
+    }
+
+    pay(amount:number):void{
+        console.log(`Paid: ₹${amount} using UPI ID: ${this.upiID}`);
+    }
 }
 
+class CreditCard extends PaymentMethod implements Payment{
+    constructor(owner:string,private cardNumber:string){
+        super(owner);
+    }
+    
+    pay(amount:number):void{
+        console.log(`Paid: ₹${amount} by card ending with ${this.cardNumber.slice(-4)}`);
+    }
+}
 
-const User1 = createUser("Jayp",20);
+const upi = new UPI("Jay","jay@upi");
+const cc = new CreditCard("Yash","9876543210");
 
-printUserName(User1);
+upi.showOwner();
+upi.pay(500);
+
+cc.showOwner();
+cc.pay(10000);
