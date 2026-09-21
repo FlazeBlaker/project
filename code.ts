@@ -1,7 +1,7 @@
 interface Payment{
     pay(amount:number):void;
 }
-
+// comment
 class PaymentMethod{
     constructor(protected owner: string){
 
